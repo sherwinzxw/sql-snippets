@@ -14,7 +14,7 @@ BEGIN
     -- Insert statements for procedure here
 /********************************************************************************************
 	
-	Author:			Xinwei (Sherwin) Zhao | sherwin.zhao@justice.tas.gov.au
+	Author:			Xinwei (Sherwin) Zhao | 
 	Date:			2022-07-21
 	Description:	This script geneates the list of dates that builds the global dimension 
 					date table.					
