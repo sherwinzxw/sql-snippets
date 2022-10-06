@@ -1,0 +1,32 @@
+CREATE PROCEDURE dbo.usp_DynamicSQL_LoadTableWithForbiddenColumnCharactersIntoParquet	
+	@SchemaName VARCHAR(255),
+	@TableName VARCHAR(255)
+AS
+DECLARE @combinedString VARCHAR(MAX);
+WITH CTE_REMOVE_COLUMN_CHARACTERS AS (
+	SELECT 
+		T.TABLE_SCHEMA,
+		T.TABLE_NAME,
+		C.COLUMN_NAME AS OriginalColumnName,
+		'[' + C.COLUMN_NAME + '] AS ' + REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(C.COLUMN_NAME,'[',''),',',''),';',''),'{',''),'}',''),'(',''),')',''),CHAR(32),''),CHAR(13),''),'=',''),']','') AS COLUMN_NAME	
+	FROM INFORMATION_SCHEMA.TABLES T
+	INNER JOIN INFORMATION_SCHEMA.COLUMNS C ON T.TABLE_NAME = C.TABLE_NAME
+	WHERE T.TABLE_TYPE = 'BASE TABLE'
+	AND T.TABLE_SCHEMA = @SchemaName
+	AND T.TABLE_NAME = @TableName
+)
+
+SELECT 
+	@combinedString = COALESCE(@combinedString + ', ', '') + COLUMN_NAME
+FROM CTE_REMOVE_COLUMN_CHARACTERS
+
+SELECT 
+	'SELECT ' + 
+	@combinedString +
+	' FROM ' +
+	@SchemaName + 
+	'.' +
+	@TableName +
+	' WITH(NOLOCK)'
+AS SQL;
+
