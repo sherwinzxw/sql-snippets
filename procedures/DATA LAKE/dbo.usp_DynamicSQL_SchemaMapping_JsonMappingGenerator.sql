@@ -3,13 +3,12 @@
 -- Create date: 2022-09-20
 -- Description:	This procedures generates the schema mapping information to be used in the Azure Data Factory Copy Data Activity to rename dataset columns
 -- =============================================
-CREATE OR ALTER PROCEDURE [dbo].[dbo.usp_CONFORMANCE_DataFactoryCopyData_SchemaMappingGenerator]
+CREATE OR ALTER PROCEDURE [dbo].[usp_DynamicSQL_SchemaMapping_JsonMappingGenerator]
   @SourceDatabaseName VARCHAR(100),
   @SourceTableName VARCHAR(100),
   @SourceSchemaName VARCHAR(10)
 AS
-BEGIN
-  BEGIN        
+BEGIN 
 	SELECT
 		STUFF(
 			(
@@ -28,5 +27,4 @@ BEGIN
 		) +
 		'"}}]}'
 	AS SCHEMA_JSON_OUTPUT
-  END
 END

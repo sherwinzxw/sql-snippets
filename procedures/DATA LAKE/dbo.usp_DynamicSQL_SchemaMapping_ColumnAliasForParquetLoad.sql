@@ -1,4 +1,4 @@
-CREATE PROCEDURE dbo.usp_DynamicSQL_LoadTableWithForbiddenColumnCharactersIntoParquet	
+CREATE OR ALTER PROCEDURE dbo.usp_DynamicSQL_SchemaMapping_ColumnAliasForParquetLoad	
 	@SchemaName VARCHAR(255),
 	@TableName VARCHAR(255)
 AS
