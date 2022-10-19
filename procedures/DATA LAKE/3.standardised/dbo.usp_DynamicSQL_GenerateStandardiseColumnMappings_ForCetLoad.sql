@@ -35,7 +35,3 @@ SELECT
     CTE_DDL AS COLUMN_MAPPINGS
 FROM
     CTE_PRE_CREATE_DDL
-
-
-
---EXEC usp_DynamicSQL_SELECT_Generate_SDT_Entity_Column_Mappings_CET 'source_system_name', 'Person', 'S_CommAddress/Phone/Home'
