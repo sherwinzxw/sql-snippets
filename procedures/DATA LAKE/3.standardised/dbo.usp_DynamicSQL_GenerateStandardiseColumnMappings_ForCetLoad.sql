@@ -18,7 +18,7 @@ WITH CTE AS (
 CTE_DDL AS (
     SELECT
         TargetEntityName,
-        SourceColumnName  + ' AS  ' + TargetColumnName AS ColumnDefinition
+        'TRIM(' + SourceColumnName + ') AS  ' + TargetColumnName AS ColumnDefinition
     FROM
         CTE
 )
